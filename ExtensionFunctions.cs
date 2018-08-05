@@ -1,11 +1,17 @@
-﻿namespace ExtensionFunctions {
+﻿using System;
+using System.Collections;
+using System.Linq;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace ExtensionFunctions {
 	public static class ArrayFunctions {
 		///<summary>
 		/// The CleanupList function runs through a list and removes all NULL elements. 
 		/// The remaining elements get moved towards the front of the list.
 		/// </summary>
-		public static System.Collections.Generic.List<T> CleanupList<T>(System.Collections.Generic.List<T> list) {
-			System.Collections.Generic.List<T> temp = new System.Collections.Generic.List<T>();
+		public static List<T> CleanupList<T>(List<T> list) {
+			List<T> temp = new List<T>();
 			foreach(T l in list) {
 				if(l != null)
 					temp.Add(l);
@@ -14,19 +20,7 @@
 		}
 
 		public static T[] CleanupArray<T>(T[] array) {
-			int n;
-			System.Collections.Generic.List<int> referenceList = new System.Collections.Generic.List<int>();
-			for(var i = 0; i < array.Length; i++) {
-				if(array[i] != null) {
-					referenceList.Add(i);
-					n++;
-				}
-			}
-			T[] temp = T[n];
-			for(int i = 0; i < temp.Length; i++) {
-				temp[i] = array(referenceList[i]);
-			}
-			return temp;
+			return array.Where(x => x != null).ToArray();
 		}
 
 		/// <summary>
